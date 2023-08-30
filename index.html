@@ -14,17 +14,24 @@ We design a system to improve the quality of video transmission in real-time one
 
 <h1>VE-DNN Design</h1>
 
-<p>First, the output video stream should be of <strong>high quality</strong>. Synchronous design on video denoising and video super-resolution is needed. The direct combination of existing video denoising and video super-resolution approaches in tandem (in either order) is insufficient as the second step will amplify a small error generated from the first step, causing degraded performance in the second step. </p>
+<p>The design of VE-DNN follows the following three objectives:</p>
 
-<p>Second, the designed DNN should be with a \textbf{small inference delay} to satisfy the need for real-time video. Since a real-time video requires sub-400 ms total delay \cite{itut400}, including network delay, inference delay, and buffer delay, we should limit the inference delay to sub-200 ms to give room to other delays. The direct combination of existing denoising and super-resolution DNN models suffers from redundant computations and results in long processing times.</p>
+<li>First, the output video stream should be of <strong>high quality</strong>. Synchronous design on video denoising and video super-resolution is needed. The direct combination of existing video denoising and video super-resolution approaches in tandem (in either order) is insufficient as the second step will amplify a small error generated from the first step, causing degraded performance in the second step. </li>
 
-<p>Third, the DNN should support \textbf{multi-granularity input} and \hspace{0.1pt} \textbf{multi-granularity output}: i.e., input video in \textbf{multi-granularity resolutions} and upsampling in \textbf{multiple scales}. Since the network bandwidth is fluctuating, the raw video could be sent in different resolutions with different bitrates. The DNN should allow the input in different resolutions and output a high-definition video stream with a specified upscale factor to adapt to constraints at the receiver.</p>
+<li>Second, the designed DNN should be with a \textbf{small inference delay} to satisfy the need for real-time video. Since a real-time video requires sub-400 ms total delay \cite{itut400}, including network delay, inference delay, and buffer delay, we should limit the inference delay to sub-200 ms to give room to other delays. The direct combination of existing denoising and super-resolution DNN models suffers from redundant computations and results in long processing times.</li>
+
+<li>Third, the DNN should support \textbf{multi-granularity input} and \hspace{0.1pt} \textbf{multi-granularity output}: i.e., input video in \textbf{multi-granularity resolutions} and upsampling in \textbf{multiple scales}. Since the network bandwidth is fluctuating, the raw video could be sent in different resolutions with different bitrates. The DNN should allow the input in different resolutions and output a high-definition video stream with a specified upscale factor to adapt to constraints at the receiver.</li>
 
 <p>The pipeline consists of three sub-modules: the noise-eliminated alignment (NEA) sub-module, the chronological feature propagation (CFP) sub-module, and the multi-scale upsampling (MSU) sub-module. </p>
 
 <h1>VEA-ABR Design</h1>
 
-As for every video chunk, VEA-ABR determines (1) in what resolution the chunk should be transmitted; and (2) to what resolution chunk should be super-resolved if it is received at the receiver. Different transmission delays and processing delays will be incurred for different decisions. Since we consider real-time video instead of stored video, each video chunk has a playout deadline. Each chunk must be able to be played out before the deadline, otherwise, the video chunk will not be played and will be regarded as lost. 
+<p>As for every video chunk, VEA-ABR determines: </p>
+
+<li>in what resolution the chunk should be transmitted;</li>
+<li>to what resolution chunk should be super-resolved if it is received at the receiver. </li>
+
+<p>Different transmission delays and processing delays will be incurred for different decisions. Since we consider real-time video instead of stored video, each video chunk has a playout deadline. Each chunk must be able to be played out before the deadline, otherwise, the video chunk will not be played and will be regarded as lost. </p>
 
 <h1>Results</h1>
 
