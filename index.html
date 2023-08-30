@@ -1,22 +1,26 @@
 ---
 layout: default
-title: Real-EVE: Real-time Edge-assist Video Enhancement for Joint Denoising and Super-resolution
+title: Real-EVE Real-time Edge-assist Video Enhancement for Joint Denoising and Super-resolution
 ---
 
 <h1>Introduction and Motivation </h1>
 
-<p> Real-time video applications have received much attention in recent years.  However, the perceived quality of real-time videos in many situations is far from ideal due to  two major obstacles: noise in the video frames caused by limited camera hardware and low resolution caused by bandwidth-limited networks. We propose a new Real-time Edge-assist Video Enhancement (Real-EVE) framework. Real-EVE includes two key designs: The video-enhancement deep neural network (VE-DNN), which jointly  eliminates noise and super-resolves videos in real time with a small inference delay; and the video-enhancement-aware adaptive bitrate streaming (VEA-ABR), which adapts sending rate in response to changing network conditions to optimize the video quality posterior to video enhancement.</p>
+<p> Real-time video applications have received much attention in recent years.  However, the perceived quality of real-time videos in many situations is far from ideal due to  two major obstacles: noise in the video frames caused by limited camera hardware and low resolution caused by bandwidth-limited networks. We propose a new Real-time Edge-assist Video Enhancement (Real-EVE) framework. </p>
 
-<ul>
-    VE-DNN
-    VEA-ABR
-</ul>
+<p>Real-EVE includes two key designs: </p>
+<li>The video-enhancement deep neural network (VE-DNN), which jointly  eliminates noise and super-resolves videos in real time with a small inference delay;</li>
+<li>The video-enhancement-aware adaptive bitrate streaming (VEA-ABR), which adapts sending rate in response to changing network conditions to optimize the video quality posterior to video enhancement.</li>
 
-<li>
-    VE-DNN
-    VEA-ABR
-</li>
+<h1>System Overview</h1>
+We design a system to improve the quality of video transmission in real-time one-way communication scenarios. The system to realize the AI-enhanced real-time video delivery consists of two parts: the sender and the receiver. The sender is a simple device with minimal computational capacities, and the receiver is an edge-computing server with sufficient computational power.  The bandwidth between the sender and the edge server is limited, either because the wireless access link of the sender is not stable, or because the path from the sender to the edge server is through a congested network. The sender sends the low-quality (low-resolution) real-time video to the receiver so that the data rate is not necessarily large. Then, the receiver will enhance the video in real time and the high-quality video is restored. 
 
+<h1>VE-DNN Design</h1>
+
+<p>First, the output video stream should be of <strong>high quality</strong>. Synchronous design on video denoising and video super-resolution is needed. The direct combination of existing video denoising and video super-resolution approaches in tandem (in either order) is insufficient as the second step will amplify a small error generated from the first step, causing degraded performance in the second step. </p>
+
+<h1>VEA-ABR Design</h1>
+
+<!-- ul -->
 
 <h1>This is a Heading</h1>
 <p>This is a paragraph.</p>
