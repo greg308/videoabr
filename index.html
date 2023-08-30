@@ -10,6 +10,9 @@ title: Real-EVE Real-time Edge-assist Video Enhancement for Joint Denoising and 
 <li>The video-enhancement-aware adaptive bitrate streaming (VEA-ABR), which adapts sending rate in response to changing network conditions to optimize the video quality posterior to video enhancement.</li>
 
 <h1>System Overview</h1>
+
+<img src="/videoabr/images/fig1.png" alt="Sys">
+
 We design a system to improve the quality of video transmission in real-time one-way communication scenarios. The system to realize the AI-enhanced real-time video delivery consists of two parts: the sender and the receiver. The sender is a simple device with minimal computational capacities, and the receiver is an edge-computing server with sufficient computational power.  The bandwidth between the sender and the edge server is limited, either because the wireless access link of the sender is not stable, or because the path from the sender to the edge server is through a congested network. The sender sends the low-quality (low-resolution) real-time video to the receiver so that the data rate is not necessarily large. Then, the receiver will enhance the video in real time and the high-quality video is restored. 
 
 <h1>VE-DNN Design</h1>
