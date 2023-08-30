@@ -11,7 +11,7 @@ title: Real-EVE Real-time Edge-assist Video Enhancement for Joint Denoising and 
 
 <h1>System Overview</h1>
 
-<img src="/videoabr/images/fig1.png" alt="Sys">
+<img src="/videoabr/images/fig1.png" alt="fig1">
 
 We design a system to improve the quality of video transmission in real-time one-way communication scenarios. The system to realize the AI-enhanced real-time video delivery consists of two parts: the sender and the receiver. The sender is a simple device with minimal computational capacities, and the receiver is an edge-computing server with sufficient computational power.  The bandwidth between the sender and the edge server is limited, either because the wireless access link of the sender is not stable, or because the path from the sender to the edge server is through a congested network. The sender sends the low-quality (low-resolution) real-time video to the receiver so that the data rate is not necessarily large. Then, the receiver will enhance the video in real time and the high-quality video is restored. 
 
@@ -21,28 +21,50 @@ We design a system to improve the quality of video transmission in real-time one
 
 <li>First, the output video stream should be of <strong>high quality</strong>. Synchronous design on video denoising and video super-resolution is needed. The direct combination of existing video denoising and video super-resolution approaches in tandem (in either order) is insufficient as the second step will amplify a small error generated from the first step, causing degraded performance in the second step. </li>
 
-<li>Second, the designed DNN should be with a \textbf{small inference delay} to satisfy the need for real-time video. Since a real-time video requires sub-400 ms total delay \cite{itut400}, including network delay, inference delay, and buffer delay, we should limit the inference delay to sub-200 ms to give room to other delays. The direct combination of existing denoising and super-resolution DNN models suffers from redundant computations and results in long processing times.</li>
+<li>Second, the designed DNN should be with a <strong>small inference delay</strong> to satisfy the need for real-time video. Since a real-time video requires sub-400 ms total delay, including network delay, inference delay, and buffer delay, we should limit the inference delay to sub-200 ms to give room to other delays. The direct combination of existing denoising and super-resolution DNN models suffers from redundant computations and results in long processing times.</li>
 
-<li>Third, the DNN should support \textbf{multi-granularity input} and \hspace{0.1pt} \textbf{multi-granularity output}: i.e., input video in \textbf{multi-granularity resolutions} and upsampling in \textbf{multiple scales}. Since the network bandwidth is fluctuating, the raw video could be sent in different resolutions with different bitrates. The DNN should allow the input in different resolutions and output a high-definition video stream with a specified upscale factor to adapt to constraints at the receiver.</li>
+<li>Third, the DNN should support <strong>multi-granularity input</strong>} and <strong>multi-granularity output</strong>: i.e., input video in <strong>multi-granularity resolutions</strong> and upsampling in <strong>multiple scales</strong>. Since the network bandwidth is fluctuating, the raw video could be sent in different resolutions with different bitrates. The DNN should allow the input in different resolutions and output a high-definition video stream with a specified upscale factor to adapt to constraints at the receiver.</li>
+
+<img src="/videoabr/images/fig2.png" alt="fig2">
 
 <p>The pipeline consists of three sub-modules: the noise-eliminated alignment (NEA) sub-module, the chronological feature propagation (CFP) sub-module, and the multi-scale upsampling (MSU) sub-module. </p>
 
 <h1>VEA-ABR Design</h1>
 
+
 <p>As for every video chunk, VEA-ABR determines: </p>
 
 <li>in what resolution the chunk should be transmitted;</li>
+
 <li>to what resolution chunk should be super-resolved if it is received at the receiver. </li>
 
 <p>Different transmission delays and processing delays will be incurred for different decisions. Since we consider real-time video instead of stored video, each video chunk has a playout deadline. Each chunk must be able to be played out before the deadline, otherwise, the video chunk will not be played and will be regarded as lost. </p>
 
-<h1>Results</h1>
+<img src="/videoabr/images/fig3.png" alt="fig3">
 
-<h2>System Implementation</h2>
+<p>Flow-shop scheduling for Real-EVE. Each chunk is transmitted, processed, and then played out. Transmission and processing must be completed by the deadline (the time it should be played out).  The transmission of chunks 3--5 can only be started after the transmission of their previous trunks are completed. The processing of chunks 5--6 can only be started after the processing of their previous trunks are completed.</p>
+
+<h1>Results</h1>
 
 <h2>Effectiveness of VE-DNN Module</h2>
 
+<img src="/videoabr/images/fig4.png" alt="fig4">
+
+<p>Visualized result in a real-world system.</p>
+
+<img src="/videoabr/images/fig5.png" alt="fig5">
+
+<p>Video quality vs. delay of VE-DNN and benchmarks.</p>
+
 <h2>Effectiveness of VEA-ABR Module</h2>
+
+<img src="/videoabr/images/fig6.png" alt="fig6">
+
+<p>QoE comparison under high, medium, and low bandwidth networks.It is shown that VE-DNN steadily outperforms other benchmarks.</p>
+
+<img src="/videoabr/images/fig7.png" alt="fig7">
+
+<p>Trace under the medium network bandwidth condition. It is shown that VEA-ABR algorithm is the best. It can adapt to the environment faster and suggest a more conservative transmission resolution, and super-resolve the chunk in a timely manner. </p>
 
 <h1>Grants</h1>
 This project is sponsored by the Toronto Mobility Scheme.
